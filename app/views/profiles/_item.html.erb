@@ -1,0 +1,16 @@
+<% @users.each do |user| %>
+<div style="background-color: #85C1E9;margin-bottom:10px;">
+    <div class="titleBox">
+        <div class="avatar">
+            <%= user.profile.display_name[0] %>
+        </div>
+        <div class="title-content">
+            <b></b><%= link_to user.profile.display_name, profile_path(user) %></b><br />
+            <%= time_ago_in_words(user.profile.updated_at) %> 
+        </div>
+        <div class="score" style="float: right;">
+            <%= user.profile.score %>
+        </div>
+    </div>
+</div>
+<% end %>

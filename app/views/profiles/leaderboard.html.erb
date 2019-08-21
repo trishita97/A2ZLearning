@@ -1,0 +1,62 @@
+<div style="background-image: url(/12.jpg);">
+    <div class="container">
+        <div class="col-sm-2 col-md-2 col-lg-2" style="display: inline-block; vertical-align: top;">
+            <%= render 'leftbar' %>
+        </div>
+        <div class="col-sm-7 col-md-7 col-lg-7" style="display: inline-block;">
+            <div class="jumbotron">
+                <%= render 'item' %>
+            </div>
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2" style="display: inline-block; vertical-align: top;">
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">
+                    Tags
+                </div>
+                <%= render 'tags' %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--view part end-->
+<style>
+    .jumbotron {
+        background-color: #5499C7;
+    }
+
+    .titleBox {
+        padding: 10px;
+        vertical-align: middle;
+        box-shadow: 0px 1px #5499C7;
+    }
+
+    .titleBox .avatar {
+        display: inline-block;
+        background: #5499C7;
+        vertical-align: middle;
+        text-align: center;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        font-size: 34px;
+    }
+
+    .titleBox .score {
+        display: inline-block;
+        background: #5499C7;
+        vertical-align: middle;
+        text-align: center;
+        width: 50px;
+        height: 50px;
+        padding-top: 14px;
+        border-radius: 50%;
+        font-size: 16px;
+    }
+
+    .titleBox .title-content {
+        display: inline-block;
+        vertical-align: middle;
+
+    }
+</style>

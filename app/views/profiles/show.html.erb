@@ -1,0 +1,93 @@
+<div style="background-image: url(/12.jpg);">
+  <div class="container">
+    <div class="col-sm-2 col-md-2 col-lg-2" style="display: inline-block; vertical-align: top;">
+      <%= render 'leftbar' %>
+    </div>
+    <div class="col-sm-7 col-md-7 col-lg-7" style="display: inline-block;">
+
+
+      <center>
+        <div style="background-color:#66ccff;">
+          <div class="name">
+            <div class="titleBox">
+              <div class="avatar">
+                <%= @user.profile.display_name[0] %>
+              </div>
+            </div>
+            <h2><b><%= @user.profile.first_name %>'s Profile</b></h2>
+          </div>
+        </div>
+
+        <div class="nav">
+          <h5>
+            <p>
+              <strong> Name:</strong>
+              <%= @user.profile.display_name %>
+            </p>
+            <p>
+              <strong>Address:</strong>
+              <%= @user.profile.address %>
+            </p>
+
+            <p>
+              <strong>Mobile:</strong>
+              <%= @user.profile.mobile %>
+            </p>
+
+            <%= @user.questions.count==1?"Asked "+@user.questions.count.to_s+" question.": "Asked "+@user.questions.count.to_s+" questions." %>
+            <%= @user.answers.count==1?"Gived "+@user.answers.count.to_s+" answer.": "Gived "+@user.answers.count.to_s+" answers." %>
+          </h5>
+        </div>
+
+      </center>
+
+
+
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2" style="display: inline-block; vertical-align: top;">
+      <div class="card" style="width: 18rem;">
+        <div class="card-header">
+          Featured
+        </div>
+       <%= render 'tags' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
+<script>
+  CKEDITOR.replace('editor1');
+</script>
+<!--view part end-->
+
+<style>
+  .name {
+    padding: 10px;
+    color: blue;
+    border: 2px solid #4444;
+  }
+
+  .avatar {
+    display: inline-block;
+    border: 1px solid #5499C7;
+    background: #5499C7;
+    vertical-align: middle;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 34px;
+  }
+
+  .nav {
+
+    background-repeat: no-repeat;
+    width: 500px;
+    height: 15opx;
+    text-align: center;
+    background-position: center;
+    padding: 100px;
+  }
+</style>

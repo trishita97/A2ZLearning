@@ -1,0 +1,74 @@
+<div style="background-image: url(/12.jpg);">
+    <div class="container">
+        <div class="col-sm-2 col-md-2 col-lg-2" style="display: inline-block; vertical-align: top;">
+            <%= render 'leftbar' %>
+        </div>
+        <div class="col-sm-7 col-md-7 col-lg-7" style="display: inline-block;">
+            <div class="jumbotron" style="background-image: url(/14.jpg);">
+
+            </div>
+            
+            <%= render 'question' %>
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2" style="display: inline-block; vertical-align: top;">
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">
+                    Tags
+                </div>
+                <%= render 'tags' %>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('description');
+</script>
+<!--view part end-->
+
+<style>
+    .submit-div {
+        vertical-align: top;
+        text-align: right;
+        height: 60px;
+    }
+
+    .head {
+        background-image: url(/13.jpg);
+    }
+
+    .titleBox {
+
+        padding: 10px;
+        vertical-align: middle;
+        box-shadow: 0px 1px #5499C7;
+    }
+
+    .titleBox .avatar {
+        display: inline-block;
+        background: #5499C7;
+        vertical-align: middle;
+        text-align: center;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        font-size: 34px;
+
+
+    }
+
+    .titleBox .title-content {
+        display: inline-block;
+        vertical-align: middle;
+
+    }
+
+    .questions {
+        padding: 10px;
+    }
+    .tags {
+        padding: 10px;
+    }
+</style>

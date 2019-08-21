@@ -1,0 +1,23 @@
+<% @questions.each do |qsn| %>
+<div style="background-color: #85C1E9;margin-bottom:10px;">
+    <div class="titleBox">
+        <div class="avatar">
+            <%= qsn.user.profile.display_name[0] %>
+        </div>
+        <div class="title-content">
+            <b></b><%= link_to qsn.title, question_detail_path(qsn) %></b><br />
+            <%= time_ago_in_words(qsn.created_at) %> , Ask By
+            <%= link_to qsn.user.profile.display_name, profile_path(qsn.user) %>
+        </div>
+    </div>
+    <div class="questions">
+        <div><%=qsn.try(:description).try(:html_safe) %></div><br>
+        <%= qsn.answers.count %>
+    </div>
+    <div class="tags">
+        <% qsn.question_tags.each do |tag| %>
+            <a href="/search/<%=tag.tag.name%>"><code>#<%=tag.tag.name %></code></a>&nbsp;
+        <% end %>
+    </div>
+</div>
+<% end %>

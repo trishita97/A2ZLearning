@@ -10,48 +10,73 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_02_130254) do
+ActiveRecord::Schema.define(version: 2019_08_20_123313) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "answers", force: :cascade do |t|
     t.string "answer"
-    t.string "question_id"
-    t.string "user_id"
+    t.bigint "question_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_answers_on_question_id"
+    t.index ["user_id"], name: "index_answers_on_user_id"
   end
 
   create_table "comments", force: :cascade do |t|
-    t.string "user_id"
+    t.bigint "user_id"
     t.string "comment"
-    t.string "answer_id"
+    t.bigint "answer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["answer_id"], name: "index_comments_on_answer_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "likes", force: :cascade do |t|
-    t.string "user_id"
-    t.string "answer_id"
+    t.bigint "user_id"
+    t.bigint "answer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["answer_id"], name: "index_likes_on_answer_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "profiles", force: :cascade do |t|
     t.string "first_name"
     t.string "middle_name"
+    t.string "last_name"
     t.string "address"
     t.string "mobile"
-    t.string "user_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "score", default: 0
+    t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
+
+  create_table "question_tags", force: :cascade do |t|
+    t.bigint "question_id"
+    t.bigint "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_question_tags_on_question_id"
+    t.index ["tag_id"], name: "index_question_tags_on_tag_id"
   end
 
   create_table "questions", force: :cascade do |t|
     t.string "title"
     t.string "description"
-    t.string "user_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_questions_on_user_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -68,4 +93,6 @@ ActiveRecord::Schema.define(version: 2019_08_02_130254) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "question_tags", "questions"
+  add_foreign_key "question_tags", "tags"
 end

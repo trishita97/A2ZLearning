@@ -1,0 +1,162 @@
+<div style="background-image: url(/12.jpg);">
+    <div class="container">
+        <div class="col-sm-2 col-md-2 col-lg-2" style="display: inline-block; vertical-align: top;">
+            <%= render 'leftbar' %>
+        </div>
+        <div class="col-sm-7 col-md-7 col-lg-7" style="display: inline-block;">
+            <div class="jumbotron" style="background-color: #5499C7;">
+                <h4><%=@question.title %></h4>
+                <p>
+                    <%=@question.try(:description).try(:html_safe) %>
+                </p>
+            </div>
+            <hr />
+            <% @answers.each do |ans| %>
+            <% if ans.id? %>
+            <div style="background-color: #85C1E9;margin:1px;"><b>
+                    <div class="titleBox">
+                        <div class="avatar">
+                            <%= ans.user.profile.display_name[0] %>
+                        </div>
+                        <div class="title-content">
+                            <%= link_to ans.user.profile.display_name,profile_path(ans.user)%>
+                </b><br>
+                <%= time_ago_in_words(ans.created_at) %>
+            </div>
+        </div>
+        <div class="answer">
+            <%=ans.try(:answer).try(:html_safe) %>
+                <% if ans.likes.find_by_user_id(current_user.id).present? %>
+                    <i onclick="likeIt(this,'<%= ans.id %>')" style="cursor: pointer;" class="fa fa-thumbs-up<%= %>">&nbsp;<%= ans.likes.count %></i>
+                <% else %>
+                    <i onclick="likeIt(this,'<%= ans.id %>')" style="cursor: pointer;" class="fa fa-thumbs-o-up">&nbsp;<%= ans.likes.count %></i>
+                <% end %>
+            
+            <button type="button" class="btn btn-default btn-sm">
+                <%= link_to "<span class=\"glyphicon glyphicon-comment\"></span> Comment(#{ans.comments.count})".html_safe,comment_path(ans) %>
+            </button>
+            <button type="button" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-share"></span> Share
+            </button>
+            <% if current_user.id==ans.user_id %>
+            <i class="fa fa-trash-o" style="cursor: pointer;"></i>
+            <% end %>
+        </div>
+
+    </div><br>
+
+    <% end %>
+    <% end %>
+
+    <%= form_for @answer, url: "/questions/#{@answer.question_id}", local: true do |form| %>
+    <% if @answer.errors.any? %>
+    <div id="error_explanation">
+        <h2>
+            <%= pluralize(@answer.errors.count, "error") %> prohibited
+            this question from being saved:
+        </h2>
+        <ul>
+            <% @answer.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+            <% end %>
+        </ul>
+    </div>
+    <% end %>
+    <div>
+        <p>
+            <%= form.label :answer, value: "Write Your answer:" %><br>
+            <%= form.text_area :answer, id: 'answer' %>
+        </p>
+
+        <div class="submit-div">
+            <%= form.submit 'Post Answer', class: 'btn btn-primary' %>
+        </div>
+    </div>
+    <% end %>
+
+</div>
+<div class="col-sm-2 col-md-2 col-lg-2" style="display: inline-block; vertical-align: top;">
+    <div class="card" style="width: 18rem;">
+        <div class="card-header">
+            Tags
+        </div>
+        <%= render 'tags' %>
+    </div>
+</div>
+</div>
+</div>
+</div>
+
+<script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('answer');
+</script>
+<script>
+    function likeIt(x, answer) {
+        //console.log('Like called.');
+        if(x.classList[1]=="fa-thumbs-o-up"){
+            $.ajax({
+                url: '/likes/' + answer,
+                type: 'POST',
+                success: (data) => {
+                    //console.log(data);
+                    x.classList.replace("fa-thumbs-o-up","fa-thumbs-up");
+                    x.innerHTML="&nbsp;"+data.count;
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+            });
+        }
+        else{
+            $.ajax({
+                url: '/likes/' + answer,
+                type: 'DELETE',
+                success: (data) => {
+                    //console.log(data);
+                    x.classList.replace("fa-thumbs-up","fa-thumbs-o-up");
+                    x.innerHTML="&nbsp;"+data.count;
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+            });
+        }
+        
+        //console.log(answer);
+    }
+</script>
+<style>
+    .titleBox {
+        box-shadow: 0px 1px #5499C7;
+        padding: 10px;
+        vertical-align: middle;
+    }
+
+    .titleBox .avatar {
+        display: inline-block;
+        border: 1px solid #5499C7;
+        background: #5499C7;
+        vertical-align: middle;
+        text-align: center;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        font-size: 34px;
+    }
+
+    .titleBox .title-content {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .answer {
+        padding: 10px;
+    }
+
+    .submit-div {
+        vertical-align: top;
+        text-align: right;
+        height: 60px;
+    }
+</style>

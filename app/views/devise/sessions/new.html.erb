@@ -1,30 +1,63 @@
-<div class="container" style="align-content: center; background: url('/1.jpg');">
-<center>
-  <h2 style="color:blue;">Log in</h2>
+<div style="background-image: url(/12.jpg); position: absolute; top: 56px;  bottom: 0px; left: 0px; right:0px;">
+  <div class="box">
+    <div class="left">
+      <b><p style="margin-top: 150px;">Welcome to A2ZLearning</p></b>
+    </div>
+    <div class="right">
+      <h2 style="color:blue;">Log in</h2>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="field">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      </div>
 
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      <div class="field">
+        <%= f.label :password %><br />
+        <%= f.password_field :password, autocomplete: "current-password" %>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+      <div class="field">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me %>
+      </div>
+      <% end %>
+
+      <div class="actions">
+        <%= f.submit "Log in", class: 'btn btn-primary'%>
+      </div>
+      <% end %>
+
+      <%= render "devise/shared/links" %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <% if devise_mapping.rememberable? %>
-  <div class="field">
-    <%= f.check_box :remember_me %>
-    <%= f.label :remember_me %>
-  </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-  <% end %>
-
-  <%= render "devise/shared/links" %>
-</center>
 </div>
+
+<style>
+  .box {
+    background-color: white;
+    border-radius: 10px;
+    height: 320px;
+    width: 500px;
+    margin-left: 400px;
+    margin-top: 130px;
+    box-shadow: -1px 1px 4px #555555;
+  }
+  .box .left {
+    border-radius: 10px 0px 0px 10px;
+    width: 249px;
+    height: 320px;
+    display: inline-block;
+    background-image: url(/1.jpg);
+    float: left;
+    text-align: center;
+  }
+  .box .right {
+    border-radius: 0px 10px 10px 0px;
+    width: 249px;
+    height: 320px;
+    padding: 10px;
+    float: right;
+    display: inline-block;
+  }
+</style>
